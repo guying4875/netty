@@ -20,7 +20,12 @@ public class WebsocketServerHandler extends SimpleChannelInboundHandler<TextWebS
          * writeAndFlush接收的参数类型是Object类型，但是一般我们都是要传入管道中传输数据的类型，比如我们当前的demo
          * 传输的就是TextWebSocketFrame类型的数据
          */
-        ctx.channel().writeAndFlush(new TextWebSocketFrame("服务时间："+ LocalDateTime.now()));
+        String countStr = msg.text();
+        int count =  Integer.parseInt(countStr);
+        for (int i=0;i<count;i++){
+            ctx.channel().writeAndFlush(new TextWebSocketFrame("服务时间："+ LocalDateTime.now()+i));
+        }
+
     }
 
     //每个channel都有一个唯一的id值
